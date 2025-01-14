@@ -6,6 +6,7 @@
 //
 import Foundation
 
+/// This struct is the local representation for a recipe
 struct Recipe: Decodable {
     let uuid: UUID
     let name: String
@@ -17,10 +18,12 @@ struct Recipe: Decodable {
     let youtubeURL: URL?
 }
 
+/// Conformance to the Identifiable protocol through the uuid
 extension Recipe: Identifiable {
     var id: String { uuid.uuidString }
 }
 
+/// This failable initializer allows to map an APIRecipeItem into the local Recipe struct
 extension Recipe{
     init?(apiRecipe:APIRecipeItem){
         guard apiRecipe.isValid,

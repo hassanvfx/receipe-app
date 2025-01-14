@@ -6,6 +6,8 @@
 //
 import Foundation
 
+/// This struct allows to directly map the responses from the server. See Recipe Struct for the local representation
+
 struct APIRecipeItem: Identifiable, Decodable {
     let id: String?
     let name: String?
@@ -28,13 +30,14 @@ struct APIRecipeItem: Identifiable, Decodable {
     }
 
 }
-
+/// This extension allows to quickly determine if the item is valid in the local context and can be mapped into it
 extension APIRecipeItem {
   var isValid: Bool {
       name != nil && cuisine != nil && uuid != nil
   }
 }
 
+/// Handy getter that optionally mas the expected uuid received from the server
 extension APIRecipeItem {
     var uuid: UUID? {
         UUID(uuidString: id ?? "")
