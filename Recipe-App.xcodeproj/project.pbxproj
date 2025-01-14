@@ -391,7 +391,6 @@
 				CODE_SIGN_ENTITLEMENTS = "Recipe-App/Recipe_App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Recipe-App/Preview Content\"";
 				DEVELOPMENT_TEAM = QL65L72292;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -430,7 +429,6 @@
 				CODE_SIGN_ENTITLEMENTS = "Recipe-App/Recipe_App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Recipe-App/Preview Content\"";
 				DEVELOPMENT_TEAM = QL65L72292;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
