@@ -13,14 +13,28 @@ import Foundation
 ///
 actor APIService {
     private let session: URLSession
-    init(session: URLSession = URLSession.shared) {
+    private let mocking: Mock
+    init(session: URLSession = URLSession.shared, mocking: Mock = .none) {
         self.session = session
+        self.mocking = mocking
     }
 }
 
 extension APIService {
     func fetchRecipes() async throws -> APIRecipes {
-        try await APIService.get(session: session, from: APIService.Endpoint.recipes.path)
+        switch mocking {
+            case .none:
+            return try await APIService.get(session: session, from: APIService.Endpoint.recipes.path)
+            
+        case .success:
+            return try await APIService.decodeJSON(from: Mocking.recipesValid)
+            
+        case .empty:
+            return try await APIService.decodeJSON(from: Mocking.recipesEmpty)
+            
+        case .failure:
+            return try await APIService.decodeJSON(from: Mocking.recipedMalformed)
+        } 
     }
 }
 
@@ -29,26 +43,34 @@ extension APIService {
 ///
 extension APIService {
     static func get<T: Decodable & Sendable>(
-            session: URLSession,
-            from urlString: String
-        ) async throws -> T {
-            guard let url = URL(string: urlString) else {
-                throw Failure.unknown
-            }
-            
-            do {
-                let (data, _) = try await session.data(from: url)
-                
-                // Decoding off the main thread
-                let decodedResponse = try await Task.detached(priority: .background) {
-                    return try JSONDecoder().decode(T.self, from: data)
-                }.value
-                
-                return decodedResponse
-            } catch let decodingError as DecodingError {
-                throw Failure.decoding(decodingError)
-            } catch {
-                throw Failure.server(error)
-            }
+        session: URLSession,
+        from urlString: String
+    ) async throws -> T {
+        guard let url = URL(string: urlString) else {
+            throw Failure.unknown
         }
+        
+        do {
+            let (data, _) = try await session.data(from: url)
+            
+            // Decoding off the main thread
+            return try await decodeJSON(from: data)
+        } catch let decodingError as DecodingError {
+            throw Failure.decoding(decodingError)
+        } catch {
+            throw Failure.server(error)
+        }
+    }
+}
+
+extension APIService {
+    
+    
+    /// Use a background Task for decoding
+    static func decodeJSON<T: Decodable & Sendable>(from data: Data) async throws -> T {
+        return try await Task.detached(priority: .background) {
+            return try JSONDecoder().decode(T.self, from: data)
+        }.value
+    }
+    
 }

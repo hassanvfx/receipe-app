@@ -32,7 +32,7 @@ struct RecipeDetailView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .id(recipe.id)
+        .id(recipe.id) // this ensures we reload the images when the recipe changes by invalidting the DOM
       
     }
 }
