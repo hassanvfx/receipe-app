@@ -67,6 +67,8 @@ Based on the Git history, the project took approximately **5 hours** from start 
 - **Pending Improvements**  
   - Adding UI tests to automate user interactions.
   - Expanding unit tests for the ViewModel functions.
+  - Implement caching index and ring buffer to limit space usage
+  - Handle limitations around available storage
 
 ## Further Work
 
