@@ -15,6 +15,12 @@ class RecipesViewModel: ObservableObject {
 }
 
 extension RecipesViewModel {
+    func set(apiRecipes:[APIRecipeItem]){
+        self.recipes = apiRecipes.map{ Recipe(apiRecipe: $0) }.compactMap{ $0 }
+    }
+}
+
+extension RecipesViewModel {
     
     func beginLoading(){
         Services.log.info("RecipesViewModel: Begin loading")
@@ -26,7 +32,6 @@ extension RecipesViewModel {
         isLoading = false
     }
 }
-
 
 extension RecipesViewModel {
     
@@ -61,9 +66,4 @@ extension RecipesViewModel {
     }
 }
 
-extension RecipesViewModel {
-    
-    func set(apiRecipes:[APIRecipeItem]){
-        self.recipes = apiRecipes.map{ Recipe(apiRecipe: $0) }.compactMap{ $0 }
-    }
-}
+
