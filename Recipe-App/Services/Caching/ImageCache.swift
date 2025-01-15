@@ -9,6 +9,10 @@ import SwiftUI
 import CryptoKit
 
 actor ImageCache {
+    public enum Source {
+        case network
+        case cache
+    }
     
     /// Base caches directory
     private let baseCacheDirectory: URL = {
@@ -35,8 +39,11 @@ actor ImageCache {
         let digest = Insecure.MD5.hash(data: Data(string.utf8))
         return digest.map { String(format: "%02hhx", $0) }.joined()
     }
-    
     func fetch(from url: URL) async -> UIImage? {
+        let result = await fetchSourced(from: url)
+        return result.0
+    }
+    func fetchSourced(from url: URL) async -> (UIImage?, Source) {
         
         let hash = md5Hash(of: url.absoluteString)
         
@@ -53,14 +60,14 @@ actor ImageCache {
            let data = try? Data(contentsOf: fileURL),
            let image = UIImage(data: data) {
             Services.log.info("Image found on disk \(fileURL.path)")
-            return image
+            return (image, .cache)
         }
         
         // Otherwise, download it
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             guard let image = UIImage(data: data) else {
-                return nil
+                return (nil, .network)
             }
             
             // Cache to disk in a background detached task
@@ -74,11 +81,11 @@ actor ImageCache {
             }
             
             // return immediately
-            return image
+            return (image, .network)
             
         } catch {
             Services.log.error("Failed to create UIImage from server data: \(error.localizedDescription)")
-            return nil
+            return (nil, .network)
         }
     }
     
