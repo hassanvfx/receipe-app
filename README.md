@@ -1,5 +1,5 @@
 # Reciope-App Swift 6
-## Implementing the new concurrency and testing frameworks
+## Implementing the New Concurrency and Testing Frameworks
 https://github.com/user-attachments/assets/1b44bab4-9bf3-48c7-886a-61e8b73221bd
 
 ## Summary
