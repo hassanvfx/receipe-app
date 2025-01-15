@@ -12,10 +12,8 @@ import Foundation
 
 ///
 class APIService {
-    static let session = URLSession.shared
-    
     private let session: URLSession
-    init(session: URLSession = APIService.session) {
+    init(session: URLSession = URLSession.shared) {
         self.session = session
     }
 }
