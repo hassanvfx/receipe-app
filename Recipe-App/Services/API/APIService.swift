@@ -40,7 +40,7 @@ extension APIService {
                 let (data, _) = try await session.data(from: url)
                 
                 // Decoding off the main thread
-                let decodedResponse = try await Task.detached(priority: nil) {
+                let decodedResponse = try await Task.detached(priority: .background) {
                     return try JSONDecoder().decode(T.self, from: data)
                 }.value
                 

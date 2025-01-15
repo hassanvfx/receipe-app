@@ -13,4 +13,5 @@ enum Services {}
 extension Services {
     nonisolated(unsafe) static let api = APIService()
     nonisolated(unsafe) static let log = LoggingService()
+    static let images = ImageCache()
 }

@@ -22,9 +22,7 @@ struct RecipeRowView: View {
                     .fill(Color.gray.opacity(0.3))
                     .frame(width: 60, height: 60)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
-//                    .task {
-//                        await loadImage()
-//                    }
+      
             }
 
             VStack(alignment: .leading) {
@@ -35,15 +33,18 @@ struct RecipeRowView: View {
                     .foregroundColor(.secondary)
             }
         }
+        .onAppear(perform: fetchImage)
     }
 
-//    private func loadImage() async {
-//        guard let url = recipe.photoUrlSmall else { return }
-//        do {
-//            // TODO:
-//            //image = try await  Services.images.fetch(from: url)
-//        } catch {
-//            // Handle image fetch error if needed
-//        }
-//    }
+    private func fetchImage()  {
+        Task {
+            guard let url = recipe.photoSmallURL,
+                  let image =  await  Services.images.fetch(from: url) else {
+                self.image = nil
+                Services.log.debug("Failed to load image")
+                return
+            }
+            self.image = image
+        }
+    }
 }
