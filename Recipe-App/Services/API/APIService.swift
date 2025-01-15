@@ -22,7 +22,7 @@ class APIService {
 
 extension APIService {
     func fetchRecipes() async throws -> APIRecipes {
-        try await APIService.getRecipes(session: session, from: APIService.Endpoint.recipes.path)
+        try await APIService.get(session: session, from: APIService.Endpoint.recipes.path)
     }
 }
 
@@ -30,31 +30,26 @@ extension APIService {
 /// The low level calling happens in a static function aka the api engine to encourage isolation and inform the intent of not handling ANY kind of mutable state
 ///
 extension APIService {
-    static func getRecipes(session: URLSession, from urlString: String) async throws -> APIRecipes {
+    static func get<T: Decodable & Sendable>(
+            session: URLSession,
+            from urlString: String
+        ) async throws -> T {
             guard let url = URL(string: urlString) else {
                 throw Failure.unknown
             }
+            
             do {
-                
-                // Make the network call (URLSession runs in the background already)
                 let (data, _) = try await session.data(from: url)
                 
-                // Decoding in a background thread
+                // Decoding off the main thread
                 let decodedResponse = try await Task.detached(priority: nil) {
-                       return try JSONDecoder().decode(APIRecipes.self, from: data)
-                   }.value
+                    return try JSONDecoder().decode(T.self, from: data)
+                }.value
                 
-                
-                // This is the expected Happy Path
                 return decodedResponse
-                
             } catch let decodingError as DecodingError {
-                
-                // Malformed data
                 throw Failure.decoding(decodingError)
             } catch {
-                
-                // Network or other
                 throw Failure.server(error)
             }
         }
