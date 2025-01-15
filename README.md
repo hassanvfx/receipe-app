@@ -70,8 +70,10 @@ Based on the Git history, the project took approximately **5 hours** from start 
 
 Moving forward, I want to:
 - Add UI tests automating user interactions.
-- Further expand test cases for each of the services to ensure better coverage.
+- Further expand test cases for the ViewModel and each of the services to ensure better coverage.
 - Improve the list display by adopting `LazyVStack` or `UICollectionView` for handling larger datasets efficiently.
+- Consider adding pagination to the recipe get network call
+- Expanding the Network service to support other verbs and multipart payloads
 
 ## Weakest Part of the Project
 
