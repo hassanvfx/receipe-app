@@ -46,7 +46,7 @@ extension APIService {
                 
                 
                 // This is the expected Happy Path
-                return APIRecipes(recipes: decodedResponse.recipes)
+                return decodedResponse
                 
             } catch let decodingError as DecodingError {
                 
