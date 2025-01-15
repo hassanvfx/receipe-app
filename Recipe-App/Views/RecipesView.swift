@@ -12,28 +12,60 @@ struct RecipesView: View {
     
     var body: some View {
         NavigationView {
-            List(viewModel.recipes) { recipe in
-                RecipeRowView(recipe: recipe)
-            }
-            .listStyle(.plain)
-            .refreshable {
-                await viewModel.loadRecipes()
-            }
-            .navigationTitle("Recipes")
-            .overlay {
-                if viewModel.isLoading {
-                    ProgressView()
+            VStack{
+                if let selectedRecipe = viewModel.selectedRecipe {
+                    RecipeDetailView(recipe: selectedRecipe)
+                } else{
+                    nonSelectedRecipeView()
                 }
-                if let apiError = viewModel.apiError {
-                    Text(apiError.localizedDescription)
-                        .foregroundColor(.red)
-                        .padding()
-                }
+                
+                recipesList()
             }
+           
         }
         .onAppear(perform: loadRecipes)
     }
 }
+
+extension RecipesView {
+    @ViewBuilder
+    func nonSelectedRecipeView() -> some View {
+        Text("Select a recipe")
+            .font(.headline)
+            .padding(Style.padding * 2)
+            .frame(maxWidth: .infinity)
+    }
+    
+}
+
+extension RecipesView {
+    @ViewBuilder
+    func recipesList() -> some View {
+        List(viewModel.recipes) { recipe in
+            Button(action: { viewModel.select(recipe: recipe) }){
+                RecipeRowView(recipe: recipe, active: recipe.id == viewModel.selectedRecipe?.id)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+        }
+        .listStyle(.plain)
+        .refreshable {
+            await viewModel.loadRecipes()
+        }
+        .navigationTitle("Recipes")
+        .overlay {
+            if viewModel.isLoading {
+                ProgressView()
+            }
+            if let apiError = viewModel.apiError {
+                Text(apiError.localizedDescription)
+                    .foregroundColor(.red)
+                    .padding(Style.padding)
+            }
+        }
+    }
+}
+
 
 extension RecipesView {
     func loadRecipes() {

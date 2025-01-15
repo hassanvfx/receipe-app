@@ -9,6 +9,7 @@ import SwiftUI
 @MainActor
 class RecipesViewModel: ObservableObject {
     @Published var recipes: [Recipe] = []
+    @Published var selectedRecipe: Recipe?
     @Published var apiError: APIService.Failure?
     @Published var apiMessage: String?
     @Published var isLoading: Bool = false
@@ -19,6 +20,24 @@ extension RecipesViewModel {
         self.recipes = apiRecipes.map{ Recipe(apiRecipe: $0) }.compactMap{ $0 }
         
         Services.log.info("RecipesViewModel: Setting  \(apiRecipes.count) from API resulted in \(recipes.count) recipes")
+    }
+    
+    func select(recipe:Recipe){
+        guard recipe.id != selectedRecipe?.id else {
+            deselectRecipe()
+            return
+        }
+        
+        withAnimation{
+            self.selectedRecipe = recipe
+        }
+       
+    }
+    
+    func deselectRecipe(){
+        withAnimation{
+            self.selectedRecipe = nil
+        }
     }
 }
 

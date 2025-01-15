@@ -35,9 +35,9 @@ extension Recipe{
         self.name = apiRecipe.name ?? ""
         self.cuisine = apiRecipe.cuisine ?? ""
         self.photoLargeURL = URL(string: apiRecipe.photoLargeURLString ?? "")
-        self.photoSmallURL = URL(string: apiRecipe.photoLargeURLString ?? "")
-        self.sourceURL = URL(string: apiRecipe.photoLargeURLString ?? "")
-        self.youtubeURL = URL(string: apiRecipe.photoLargeURLString ?? "")
+        self.photoSmallURL = URL(string: apiRecipe.photoSmallURLString ?? "")
+        self.sourceURL = URL(string: apiRecipe.sourceURLString ?? "")
+        self.youtubeURL = URL(string: apiRecipe.youtubeURLString ?? "")
     }
 }
 
