@@ -64,12 +64,13 @@ Based on the Git history, the project took approximately **5 hours** from start 
   - Using `LazyVStack` for better performance with large lists.
   - Creating a custom `UIViewRepresentable` wrapper for `UICollectionView`.
 
-- **Pending Improvements**  
-  - Adding UI tests to automate user interactions.
-  - Expanding unit tests for the ViewModel functions.
-  - Implement caching index and ring buffer to limit space usage
+- **Caching Improvements**
+  - Implement in memory index as source of truth 
+  - Lazy saving index from memory to filesystem 
+  - Reconcile in memory index with actual filesystem
+  - Implement filesystem ring buffer to limit storage usage
+  - LRU in memory caching with ring buffer to optimize performance
   - Handle limitations around available storage
-  - Localization
 
 ## Further Work
 
@@ -79,6 +80,7 @@ Moving forward, I want to:
 - Improve the list display by adopting `LazyVStack` or `UICollectionView` for handling larger datasets efficiently.
 - Consider adding pagination to the recipe get network call
 - Expanding the Network service to support other verbs and multipart payloads
+- Localization
 
 ## Weakest Part of the Project
 
