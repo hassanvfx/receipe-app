@@ -12,4 +12,5 @@ enum Services {}
 /// And should implement their own thread-safe logic
 extension Services {
     nonisolated(unsafe) static let api = APIService()
+    nonisolated(unsafe) static let log = LoggingService()
 }

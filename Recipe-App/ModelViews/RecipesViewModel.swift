@@ -15,12 +15,14 @@ class RecipesViewModel: ObservableObject {
 }
 
 extension RecipesViewModel {
- 
+    
     func beginLoading(){
+        Services.log.info("RecipesViewModel: Begin loading")
         isLoading = true
         apiError = nil
     }
     func endLoading(){
+        Services.log.info("RecipesViewModel: End loading")
         isLoading = false
     }
 }
@@ -29,16 +31,28 @@ extension RecipesViewModel {
 extension RecipesViewModel {
     
     func fetchRecipes() async{
-        guard !isLoading else { return }
-        guard recipes.isEmpty else { return }
+        guard !isLoading else {
+            Services.log.info("RecipesViewModel: Already loading")
+            return
+        }
+        guard recipes.isEmpty else {
+            Services.log.info( "RecipesViewModel: Already fetched")
+            return
+        }
         
         beginLoading()
         
         do {
             let response = try await Services.api.fetchRecipes()
+            
+            Services.log.info("RecipesViewModel: Fetched \(response.recipes.count) recipes")
+            
             set(apiRecipes: response.recipes)
+            
         } catch {
             apiError = error as? APIService.Failure ?? APIService.Failure.unknown
+            
+            Services.log.error(apiError.debugDescription)
             
             set(apiRecipes: [])
         }
