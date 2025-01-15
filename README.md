@@ -69,6 +69,7 @@ Based on the Git history, the project took approximately **5 hours** from start 
   - Expanding unit tests for the ViewModel functions.
   - Implement caching index and ring buffer to limit space usage
   - Handle limitations around available storage
+  - Localization
 
 ## Further Work
 
