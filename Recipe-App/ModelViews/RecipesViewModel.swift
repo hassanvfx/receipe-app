@@ -33,7 +33,12 @@ extension RecipesViewModel {
         isLoading = false
     }
 }
-
+extension RecipesViewModel {
+    func loadRecipes() async{
+        recipes.removeAll()
+        await fetchRecipes()
+    }
+}
 extension RecipesViewModel {
     func fetchRecipes() async{
         guard !isLoading else {
