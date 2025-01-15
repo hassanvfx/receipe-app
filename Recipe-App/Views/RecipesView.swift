@@ -30,7 +30,7 @@ struct RecipesView: View {
 extension RecipesView {
     @ViewBuilder
     func nonSelectedRecipeView() -> some View {
-        Text("Select a recipe")
+        Text("Select a Recipe")
             .font(.headline)
             .padding(Style.padding * 2)
             .frame(maxWidth: .infinity)
