@@ -54,7 +54,7 @@ extension RecipesViewModel {
 }
 extension RecipesViewModel {
     func loadRecipes() async{
-        recipes.removeAll()
+        recipes=[]
         await fetchRecipes()
     }
 }

@@ -23,7 +23,7 @@ struct RecipesView: View {
             }
            
         }
-        .onAppear(perform: loadRecipes)
+        .onAppear(perform: fetchRecipes)
     }
 }
 
@@ -68,9 +68,9 @@ extension RecipesView {
 
 
 extension RecipesView {
-    func loadRecipes() {
+    func fetchRecipes() {
         Task {
-            await viewModel.loadRecipes()
+            await viewModel.fetchRecipes()
         }
     }
 }
