@@ -17,6 +17,8 @@ class RecipesViewModel: ObservableObject {
 extension RecipesViewModel {
     func set(apiRecipes:[APIRecipeItem]){
         self.recipes = apiRecipes.map{ Recipe(apiRecipe: $0) }.compactMap{ $0 }
+        
+        Services.log.info("RecipesViewModel: Setting  \(apiRecipes.count) from API resulted in \(recipes.count) recipes")
     }
 }
 
