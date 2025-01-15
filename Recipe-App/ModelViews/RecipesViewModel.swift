@@ -21,7 +21,6 @@ extension RecipesViewModel {
 }
 
 extension RecipesViewModel {
-    
     func beginLoading(){
         Services.log.info("RecipesViewModel: Begin loading")
         isLoading = true
@@ -34,7 +33,6 @@ extension RecipesViewModel {
 }
 
 extension RecipesViewModel {
-    
     func fetchRecipes() async{
         guard !isLoading else {
             Services.log.info("RecipesViewModel: Already loading")
