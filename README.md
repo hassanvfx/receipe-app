@@ -60,7 +60,7 @@ Based on the Git history, the project took approximately **5 hours** from start 
   While the app follows a traditional MVVM architecture, I used singletons for simplicity to simulate a basic dependency injection approach. This includes services like caching and the API, implemented using actors and a non-isolated singleton for the logging framework (`os.Logger`).
 
 - **Simplistic List Display**  
-  The current list implementation works well for fewer than 100 elements. A more robust implementation for larger datasets would require:
+  The current list implementation works well for fewer than 100 elements. A more robust implementation for larger datasets would require something like:
   - Using `LazyVStack` for better performance with large lists.
   - Creating a custom `UIViewRepresentable` wrapper for `UICollectionView`.
 
