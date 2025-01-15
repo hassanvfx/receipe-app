@@ -17,12 +17,6 @@ This is a demo application I created to showcase the new Swift concurrency featu
   - `Extensions`
   - In a more complex app, I would add a `Coordinators` folder to handle navigation logic.
 
-## Testing
-<img width="534" alt="image" src="https://github.com/user-attachments/assets/16a67707-7b3b-4ee4-8f9a-135d867f99d5" />
-
-I added two groups of tests:
-1. **Recipe network loading and decoding** tests.
-2. **Image caching** tests, including functionality to verify caching behavior by distinguishing between network-loaded and cached images.
 
 ## Focus Areas
 <img width="864" alt="image" src="https://github.com/user-attachments/assets/bd4626fa-b677-4d67-bf6c-eedd44417769" />
@@ -43,6 +37,13 @@ I added two groups of tests:
    The image cache was optimized for performance and testability:
    - It supports asynchronous disk writes while immediately returning the image to the caller.
    - A specific function was added to differentiate between images loaded from the network and cached images during tests.
+
+## Testing
+<img width="534" alt="image" src="https://github.com/user-attachments/assets/16a67707-7b3b-4ee4-8f9a-135d867f99d5" />
+
+I added two groups of tests:
+1. **Recipe network loading and decoding** tests.
+2. **Image caching** tests, including functionality to verify caching behavior by distinguishing between network-loaded and cached images.
 
 ## Time Spent
 
