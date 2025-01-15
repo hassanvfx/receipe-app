@@ -5,6 +5,8 @@
 //  Created by Hassan on 14/01/25.
 //
 
+import Foundation
+
 /// Extension that defines known endpoints and errors
 extension APIService {
     enum Endpoint {
@@ -20,6 +22,18 @@ extension APIService {
 
 /// Implementing the API Endpoint Protocol
 extension APIService.Endpoint: APIEndpointProtocol {
+    var mockValid: Data {
+        Mocking.recipesValid
+    }
+    
+    var mockEmpty: Data {
+        Mocking.recipesEmpty
+    }
+    
+    var mockInvalid: Data {
+        Mocking.recipedMalformed
+    }
+    
     public var path: String {
         switch self {
         case .recipes:

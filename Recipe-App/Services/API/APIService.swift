@@ -22,19 +22,9 @@ actor APIService {
 
 extension APIService {
     func fetchRecipes() async throws -> APIRecipes {
-        switch mocking {
-            case .none:
-            return try await APIService.get(session: session, from: APIService.Endpoint.recipes.path)
-            
-        case .success:
-            return try await APIService.decodeJSON(from: Mocking.recipesValid)
-            
-        case .empty:
-            return try await APIService.decodeJSON(from: Mocking.recipesEmpty)
-            
-        case .failure:
-            return try await APIService.decodeJSON(from: Mocking.recipedMalformed)
-        } 
+        try await APIService.get(session: session,
+                                 mocking: mocking,
+                                 endpoint: APIService.Endpoint.recipes)
     }
 }
 
@@ -44,10 +34,24 @@ extension APIService {
 extension APIService {
     static func get<T: Decodable & Sendable>(
         session: URLSession,
-        from urlString: String
+        mocking: Mock,
+        endpoint: APIEndpointProtocol
     ) async throws -> T {
-        guard let url = URL(string: urlString) else {
+        guard let url = URL(string: endpoint.path) else {
             throw Failure.unknown
+        }
+        
+        switch mocking {
+        case .none: break
+            
+        case .success:
+            return try await APIService.decodeJSON(from: endpoint.mockValid)
+            
+        case .empty:
+            return try await APIService.decodeJSON(from: endpoint.mockEmpty)
+            
+        case .failure:
+            return try await APIService.decodeJSON(from: endpoint.mockInvalid)
         }
         
         do {
