@@ -30,15 +30,13 @@ struct RecipeImageView: View {
             if let image = image {
                 Image(uiImage: image)
                     .resizable()
-                    .frame(width: imageSize.width, height: imageSize.height)
-                    .clipShape(RoundedRectangle(cornerRadius: Style.cornerRadius))
             } else {
                 Rectangle()
                     .fill(Style.Colors.inactive)
-                    .frame(width: Style.thumbSize.width, height: Style.thumbSize.height)
-                    .clipShape(RoundedRectangle(cornerRadius: Style.cornerRadius))
             }
         }
+        .frame(width: imageSize.width, height: imageSize.height)
+        .clipShape(RoundedRectangle(cornerRadius: Style.cornerRadius))
         .onAppear {
             fetchImage()
         }

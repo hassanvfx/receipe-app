@@ -11,7 +11,7 @@ import Foundation
 /// The methods are intented to be expressive shorthands for high level operations
 
 ///
-class APIService {
+actor APIService {
     private let session: URLSession
     init(session: URLSession = URLSession.shared) {
         self.session = session

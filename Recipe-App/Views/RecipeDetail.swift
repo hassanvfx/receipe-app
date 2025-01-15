@@ -32,6 +32,7 @@ struct RecipeDetailView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .id(recipe.id)
       
     }
 }

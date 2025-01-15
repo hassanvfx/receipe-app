@@ -11,7 +11,7 @@ enum Services {}
 /// Services here are expected to be accesed to multiple threads
 /// And should implement their own thread-safe logic
 extension Services {
-    nonisolated(unsafe) static let api = APIService()
     nonisolated(unsafe) static let log = LoggingService()
+    static let api = APIService()
     static let images = ImageCache()
 }
