@@ -32,3 +32,15 @@ extension RecipeRowView {
         active ? Style.Colors.active : Style.Colors.inactive
     }
 }
+#Preview {
+    VStack{
+        Text("Inactive State")
+            .font(.headline)
+        RecipeRowView(recipe: Seed.recipe)
+        
+        Text("Active State")
+            .font(.headline)
+            .padding(.top)
+        RecipeRowView(recipe: Seed.recipe, active: true)
+    }
+}

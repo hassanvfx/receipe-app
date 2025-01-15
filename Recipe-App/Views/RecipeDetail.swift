@@ -35,3 +35,7 @@ struct RecipeDetailView: View {
       
     }
 }
+
+#Preview {
+    RecipeDetailView(recipe: Seed.recipe)
+}

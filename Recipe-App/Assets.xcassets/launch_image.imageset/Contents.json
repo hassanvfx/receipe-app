@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "u5143726782_an_app_logo_for_a_recipe_app_--ar_916_--v_6.1_3c53020c-fc79-4639-be21-71481e193a16_0.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

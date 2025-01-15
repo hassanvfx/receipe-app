@@ -58,3 +58,16 @@ struct RecipeImageView: View {
         }
     }
 }
+
+#Preview {
+    VStack{
+        Text("Small Display")
+            .font(.headline)
+        RecipeImageView(recipe: Seed.recipe, size: .thumb)
+        
+        Text("Large Display")
+            .font(.headline)
+            .padding(.top)
+        RecipeImageView(recipe: Seed.recipe, size: .large)
+    }
+}
